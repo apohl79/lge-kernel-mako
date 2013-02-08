@@ -420,8 +420,6 @@ EXPORT_SYMBOL(msm_pm_set_max_sleep_time);
 /******************************************************************************
  *
  *****************************************************************************/
-
-static void *msm_pm_idle_rs_limits;
 static bool msm_pm_use_qtimer;
 
 static void msm_pm_swfi(void)
