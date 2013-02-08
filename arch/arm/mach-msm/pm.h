@@ -1,7 +1,7 @@
 /* arch/arm/mach-msm/pm.h
  *
  * Copyright (C) 2007 Google, Inc.
- * Copyright (c) 2009-2012, Code Aurora Forum. All rights reserved.
+ * Copyright (c) 2009-2013, The Linux Foundation. All rights reserved.
  * Author: San Mehat <san@android.com>
  *
  * This software is licensed under the terms of the GNU General Public
@@ -58,6 +58,13 @@ enum msm_pm_sleep_mode {
 
 #define MSM_PM_MODE(cpu, mode_nr)  ((cpu) * MSM_PM_SLEEP_MODE_NR + (mode_nr))
 
+struct msm_pm_time_params {
+	uint32_t latency_us;
+	uint32_t sleep_us;
+	uint32_t next_event_us;
+	uint32_t modified_time_us;
+};
+
 struct msm_pm_platform_data {
 	u8 idle_supported;   /* Allow device to enter mode during idle */
 	u8 suspend_supported; /* Allow device to enter mode during suspend */
@@ -73,8 +80,8 @@ extern struct msm_pm_platform_data msm_pm_sleep_modes[];
 
 struct msm_pm_sleep_ops {
 	void *(*lowest_limits)(bool from_idle,
-			enum msm_pm_sleep_mode sleep_mode, uint32_t latency_us,
-			uint32_t sleep_us, uint32_t *power);
+			enum msm_pm_sleep_mode sleep_mode,
+			struct msm_pm_time_params *time_param, uint32_t *power);
 	int (*enter_sleep)(uint32_t sclk_count, void *limits,
 			bool from_idle, bool notify_rpm);
 	void (*exit_sleep)(void *limits, bool from_idle,
@@ -87,6 +94,8 @@ int msm_pm_idle_prepare(struct cpuidle_device *dev,
 void msm_pm_set_irq_extns(struct msm_pm_irq_calls *irq_calls);
 int msm_pm_idle_enter(enum msm_pm_sleep_mode sleep_mode);
 void msm_pm_cpu_enter_lowpower(unsigned int cpu);
+void __init msm_pm_set_tz_retention_flag(unsigned int flag);
+void msm_pm_enable_retention(bool enable);
 
 #ifdef CONFIG_MSM_PM8X60
 void msm_pm_set_rpm_wakeup_irq(unsigned int irq);
