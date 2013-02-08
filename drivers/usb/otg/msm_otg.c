@@ -51,7 +51,7 @@
 #include <mach/msm_bus.h>
 #include <mach/rpm-regulator.h>
 
-bool fast_charge = false;
+bool fast_charge = true;
 module_param(fast_charge, bool, 0775);
 
 #define MSM_USB_BASE	(motg->regs)
