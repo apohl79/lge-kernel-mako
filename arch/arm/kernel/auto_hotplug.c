@@ -287,7 +287,7 @@ static void __cpuinit auto_hotplug_late_resume(struct early_suspend *handler)
 		schedule_work_on(0, &hotplug_online_all_work);
 }
 
-static struct early_suspend auto_hotplug_suspend = {
+static struct early_suspend auto_hotplug_suspend __refdata = {
 	.suspend = auto_hotplug_early_suspend,
 	.resume = auto_hotplug_late_resume,
 };
