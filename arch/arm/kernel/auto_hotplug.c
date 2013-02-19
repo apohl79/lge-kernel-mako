@@ -206,7 +206,7 @@ static void hotplug_offline_all_work_fn(struct work_struct *work)
 	 * instead of cpu0 and cpu3 as I think it might have been 
 	 * conflicting with some of the routines in this driver 
 	 */
-	for (cpu = 3; cpu > 1; cpu--) {
+	for (cpu = 3; cpu > 0; cpu--) {
 		if (likely(cpu_online(cpu) && (cpu))) {
 			offline_cpu_nr(cpu);
 		}
@@ -238,7 +238,7 @@ static void hotplug_offline_single_work_fn(struct work_struct *work)
 	 * instead of cpu0 and cpu3 as I think it might have been 
 	 * conflicting with some of the routines in this driver 
 	 */
-	for (cpu = 3; cpu > 1; cpu--) {
+	for (cpu = 3; cpu > 0; cpu--) {
 		if (likely(cpu_online(cpu) && (cpu))) {
 			offline_cpu_nr(cpu);
 			break;
