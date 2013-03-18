@@ -846,10 +846,12 @@ ssize_t acpuclk_get_vdd_levels_str(char *buf)
 
 	int i, len = 0;
 
+	len += sprintf(buf, "min:%i max:%i\n", MIN_VDD, MAX_VDD);
+
 	if (buf) {
 		for (i = 0; drv.acpu_freq_tbl[i].speed.khz; i++) {
 			if (drv.acpu_freq_tbl[i].use_for_scaling) {
-				len += sprintf(buf + len, "%lumhz: %i mV\n", drv.acpu_freq_tbl[i].speed.khz/1000,
+				len += sprintf(buf + len, "%lu %i\n", drv.acpu_freq_tbl[i].speed.khz/1000,
 						drv.acpu_freq_tbl[i].vdd_core/1000 );
 			}
 		}
